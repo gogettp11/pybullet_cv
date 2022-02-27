@@ -1,0 +1,5 @@
+joints.csv
+images
+logs
+models/__pycache__
+__pycache__
