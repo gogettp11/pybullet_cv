@@ -3,3 +3,5 @@ images
 logs
 models/__pycache__
 __pycache__
+test_data
+train_data

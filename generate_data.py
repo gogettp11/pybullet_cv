@@ -7,6 +7,7 @@ import random
 import csv
 import os
 import shutil
+from const import *
 
 p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -17,10 +18,11 @@ table = p.loadURDF('table/table.urdf')
 robotId = p.loadSDF('kuka_iiwa/kuka_with_gripper2.sdf')
 robot = robotId[0]
 numJoints = p.getNumJoints(robot)
-p.resetBasePositionAndOrientation(robot, [0, 0, 0.7], [0,0,0,1])
+p.resetBasePositionAndOrientation(robot, [0, 0, 0.7],
+                                         [0, 0, 0, 1])
 
 robotPos = p.getBasePositionAndOrientation(robot)[0]
-p.resetDebugVisualizerCamera(cameraDistance=1.2, cameraYaw=180, cameraPitch=-41,
+p.resetDebugVisualizerCamera(cameraDistance=1.3, cameraYaw=180, cameraPitch=-41,
                              cameraTargetPosition=robotPos)
 
 
@@ -30,14 +32,19 @@ def randomColor():
     return color
 
 
-def createDataset(filename, numSamples):
+def createDataset(numSamples, data_source=DATA_TRAIN):
+
+    try:
+        shutil.rmtree(data_source)
+    except Exception:
+        print("file does not exists!")
+    os.makedirs(f"{data_source}/images")
+    decimals = 4
+    filename = f'{data_source}/joints.csv'
 
     with open(filename, 'w', newline='') as f:
         csv_writer = csv.writer(f, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        shutil.rmtree("images")
-        os.makedirs("images")
-        decimals = 4
         for i in range(numSamples):
 
             p.changeVisualShape(plane, -1, rgbaColor=randomColor())
@@ -58,10 +65,10 @@ def createDataset(filename, numSamples):
             rgba = rgba[:, :, 0:3] #rgba to rgb
             depth = np.expand_dims(depth, axis=2)
             depth_img = np.concatenate((rgba, depth), axis=2)
-            cv2.imwrite(f'images/{i}.jpg', depth_img)
+            cv2.imwrite(f'{data_source}/images/{i}.jpg', depth_img)
 
             p.stepSimulation()
     p.disconnect()
 
 
-createDataset('joints.csv', 10000)
+createDataset(1000, data_source=DATA_TEST)
