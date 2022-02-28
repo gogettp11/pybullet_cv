@@ -62,10 +62,12 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
             csv_writer.writerow(np.around(jointPositions, decimals))
 
             w, h, rgba, depth, mask = p.getCameraImage(224, 224)
-            rgba = rgba[:, :, 0:3] #rgba to rgb
-            depth = np.expand_dims(depth, axis=2)
-            depth_img = np.concatenate((rgba, depth), axis=2)
-            cv2.imwrite(f'{data_source}/images/{i}.jpg', depth_img)
+            gray = cv2.cvtColor(rgba, cv2.COLOR_RGBA2GRAY)
+            edges = cv2.Canny(gray, 100, 200)
+            edges = np.expand_dims(edges, axis=2)
+            depth = (np.expand_dims(depth, axis=2)*255).astype(np.uint8)
+            depth_img = np.concatenate((edges, depth), axis=2)
+            depth_img.dump(f"{data_source}/images/{i}")
 
             p.stepSimulation()
     p.disconnect()

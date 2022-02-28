@@ -25,8 +25,7 @@ writer.set_as_default()
 for step in range(1000):
     # train
     indices = np.random.choice(range(len(output_data)), size=batch_size)
-    batch_input = tf.constant([cv.imread(f"{train_source}/images/{i}.jpg",
-                              cv.IMREAD_UNCHANGED) for i in indices], dtype=tf.float64)
+    batch_input = tf.constant([np.load(f"{train_source}/images/{i}", allow_pickle=True) for i in indices], dtype=tf.float64)
     batch_output = tf.constant([output_data[i] for i in indices], dtype=tf.float64)
 
     with tf.GradientTape() as tape:
@@ -39,15 +38,14 @@ for step in range(1000):
 
     # test
     indices = [randint(0, len(output_data_test))]
-    batch_input = tf.constant([cv.imread(f"{test_source}/images/{i}.jpg",
-                              cv.IMREAD_UNCHANGED) for i in indices], dtype=tf.float64)
+    batch_input = tf.constant([np.load(f"{test_source}/images/{i}", allow_pickle=True) for i in indices], dtype=tf.float64)
     batch_output = tf.constant([output_data_test[i] for i in indices],
                                dtype=tf.float64)
 
     out, images = model(batch_input)
     loss = loss_fun(batch_output, out)
     tf.summary.scalar(f'loss {test_source}', loss, step=step)
-    tf.summary.image(f'original {test_source}', batch_input[:, :, :, 0:2], step=step)
+    tf.summary.image(f'original {test_source}', batch_input, step=step)
     imgs = tf.split(images, num_or_size_splits=5, axis=3)
     for i, img in enumerate(imgs):
         tf.summary.image(f'processed {i}', img, step=step)
