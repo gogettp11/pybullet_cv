@@ -4,7 +4,7 @@ class TestModel(tf.keras.Model):
 
   def __init__(self, outputs):
     super().__init__()
-    self.conv1 = tf.keras.layers.Conv2D(5, (3, 3), input_shape=(224, 224, 2))
+    self.conv1 = tf.keras.layers.Conv2D(5, (3, 3), input_shape=(224, 224, 3))
     self.conv3 = tf.keras.layers.Conv2D(5, (5, 5), activation='relu')
     self.conv2 = tf.keras.layers.Conv2D(5, (5, 5), activation='relu')
     self.flatten = tf.keras.layers.Flatten()

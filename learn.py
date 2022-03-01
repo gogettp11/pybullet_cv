@@ -10,7 +10,7 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # ensuring it is running on cpu
 tf.keras.backend.set_floatx('float64')
-batch_size = 64
+batch_size = 16
 model = TestModel(14)
 train_source = DATA_TRAIN
 test_source = DATA_TEST

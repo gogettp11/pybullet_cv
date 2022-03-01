@@ -66,11 +66,12 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
             edges = cv2.Canny(gray, 100, 200)
             edges = np.expand_dims(edges, axis=2)
             depth = (np.expand_dims(depth, axis=2)*255).astype(np.uint8)
-            depth_img = np.concatenate((edges, depth), axis=2)
+            mask = (np.expand_dims(mask, axis=2)*16).astype(np.int8)
+            depth_img = np.concatenate((edges, depth, mask), axis=2)
             depth_img.dump(f"{data_source}/images/{i}")
 
             p.stepSimulation()
     p.disconnect()
 
 
-createDataset(1000, data_source=DATA_TEST)
+createDataset(1000, data_source=DATA_TRAIN)
