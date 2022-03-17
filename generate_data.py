@@ -22,7 +22,7 @@ p.resetBasePositionAndOrientation(robot, [0, 0, 0.7],
                                          [0, 0, 0, 1])
 
 robotPos = p.getBasePositionAndOrientation(robot)[0]
-p.resetDebugVisualizerCamera(cameraDistance=1.3, cameraYaw=180, cameraPitch=-41,
+p.resetDebugVisualizerCamera(cameraDistance=1.6, cameraYaw=180, cameraPitch=-41,
                              cameraTargetPosition=robotPos)
 
 
@@ -63,11 +63,11 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
 
             w, h, rgba, depth, mask = p.getCameraImage(224, 224)
             gray = cv2.cvtColor(rgba, cv2.COLOR_RGBA2GRAY)
-            edges = cv2.Canny(gray, 100, 200)
-            edges = (np.expand_dims(edges, axis=2)/255).astype(np.float64)
+            #normalize
+            gray = (np.expand_dims(gray, axis=2)/255).astype(np.float64)
             depth = (np.expand_dims(depth, axis=2)).astype(np.float64)
-            mask = (np.expand_dims(mask, axis=2)/255).astype(np.float64)
-            depth_img = np.concatenate((edges, depth, mask), axis=2)
+            # mask = (np.expand_dims(mask, axis=2)/255).astype(np.float64)
+            depth_img = np.concatenate((gray, depth), axis=2)
             depth_img.dump(f"{data_source}/images/{i}")
 
             p.stepSimulation()
