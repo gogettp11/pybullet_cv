@@ -19,7 +19,7 @@ robotId = p.loadSDF('kuka_iiwa/kuka_with_gripper2.sdf')
 robot = robotId[0]
 numJoints = p.getNumJoints(robot)
 p.resetBasePositionAndOrientation(robot, [0, 0, 0.7],
-                                         [0, 0, 0, 1])
+                                  [0, 0, 0, 1])
 
 robotPos = p.getBasePositionAndOrientation(robot)[0]
 p.resetDebugVisualizerCamera(cameraDistance=1.6, cameraYaw=180, cameraPitch=-41,
@@ -44,7 +44,7 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
 
     with open(filename, 'w', newline='') as f:
         csv_writer = csv.writer(f, delimiter=',',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for i in range(numSamples):
 
             p.changeVisualShape(plane, -1, rgbaColor=randomColor())
@@ -63,7 +63,7 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
 
             w, h, rgba, depth, mask = p.getCameraImage(224, 224)
             gray = cv2.cvtColor(rgba, cv2.COLOR_RGBA2GRAY)
-            #normalize
+            # normalize
             gray = (np.expand_dims(gray, axis=2)/255).astype(np.float64)
             depth = (np.expand_dims(depth, axis=2)).astype(np.float64)
             # mask = (np.expand_dims(mask, axis=2)/255).astype(np.float64)
@@ -74,4 +74,4 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
     p.disconnect()
 
 
-createDataset(100, data_source=DATA_TEST)
+createDataset(3000, data_source=DATA_TRAIN)
