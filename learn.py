@@ -15,16 +15,16 @@ class AlexNet(tf.keras.Model):
     def __init__(self, outputs):
         super().__init__()
         self.conv1 = tf.keras.layers.Conv2D(11, 96, input_shape=(
-            224, 224, 2), strides=4, activation=tf.nn.sigmoid)
+            224, 224, 2), strides=4, activation=tf.nn.tanh)
         self.pool1 = tf.keras.layers.MaxPool2D(3, strides=2)
-        self.conv2 = tf.keras.layers.Conv2D(5, 4, activation=tf.nn.sigmoid)
+        self.conv2 = tf.keras.layers.Conv2D(5, 4, activation=tf.nn.tanh)
         self.pool2 = tf.keras.layers.MaxPool2D(3)
-        self.conv3 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.sigmoid)
-        self.conv4 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.sigmoid)
-        self.conv5 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.sigmoid)
+        self.conv3 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.tanh)
+        self.conv4 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.tanh)
+        self.conv5 = tf.keras.layers.Conv2D(3, 1, activation=tf.nn.tanh)
         self.pool3 = tf.keras.layers.MaxPool2D(3)
         self.flatten = tf.keras.layers.Flatten()
-        self.dense2 = tf.keras.layers.Dense(500, activation=tf.nn.sigmoid)
+        self.dense2 = tf.keras.layers.Dense(500, activation=tf.nn.tanh)
         self.dense4 = tf.keras.layers.Dense(outputs)
 
     def call(self, inputs):
@@ -42,11 +42,12 @@ class AlexNet(tf.keras.Model):
         return x, images
 
 
-data = cl.Dataset.get(dataset_id='803ac666d2ad47d897f3c5b4a1e3bd2b', only_published=True)
-data_path = data.get_local_copy()
+# data = cl.Dataset.get(
+#     dataset_id='803ac666d2ad47d897f3c5b4a1e3bd2b', only_published=True)
+data_path = './train_data' # data.get_local_copy()
 # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # ensuring it is running on cpu
 tf.keras.backend.set_floatx('float64')
-batch_size = 32
+batch_size = 64
 model = AlexNet(14)
 train_source = data_path
 test_source = data_path

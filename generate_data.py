@@ -64,9 +64,10 @@ def createDataset(numSamples, data_source=DATA_TRAIN):
             w, h, rgba, depth, mask = p.getCameraImage(224, 224)
             gray = cv2.cvtColor(rgba, cv2.COLOR_RGBA2GRAY)
             # normalize
+            gray[mask!=2] = 0
+            depth[mask!=2] = 0
             gray = (np.expand_dims(gray, axis=2)/255).astype(np.float64)
             depth = (np.expand_dims(depth, axis=2)).astype(np.float64)
-            # mask = (np.expand_dims(mask, axis=2)/255).astype(np.float64)
             depth_img = np.concatenate((gray, depth), axis=2)
             depth_img.dump(f"{data_source}/images/{i}")
 
