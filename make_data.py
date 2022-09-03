@@ -4,6 +4,8 @@ import numpy as np
 import cv2
 import time
 import random
+import os
+from const import *
 
 p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -38,13 +40,17 @@ def makeManipulatorDataset(numSamples=10000):
 
 def makeDataset(robot, robotName, numSamples, motionRange,
                 camDistance, camPitch, camYaw):
-    filename = '{}.txt'.format(robotName)
-    with open(filename, 'w') as f:
-        f.truncate(0)
+    dir = f'{DATA_TRAIN}/{robotName}/'
+    file_img = f'{dir}/images'
+    file_joints = f'{dir}/joints'
+    os.makedirs(os.path.dirname(dir), exist_ok=True) # create directory if it doesn't exist for txr file
 
+    image_buf = []
+    joint_buf = []
+    temp_joints = []
     numJoints = p.getNumJoints(robot)
     i = 0
-    while i < numSamples:
+    for i in range(numSamples):
         # Randomize initial orientation for the first segment for snake
         if robotName == 'snake':
             initShift = np.random.rand(1)
@@ -60,11 +66,10 @@ def makeDataset(robot, robotName, numSamples, motionRange,
             p.resetJointState(robot, joint, jointPositions[joint])
 
         decimals = 4
-        with open(filename, 'a') as f:
-            line = 'id: {} joints: '.format(i)
-            for joint in jointPositions:
-                line += str(round(joint, decimals)) + ' '
-            f.write(line + '\n')
+        for joint in jointPositions:
+            temp_joints.append(round(joint, decimals))
+        joint_buf.append(temp_joints)
+        temp_joints.clear()
 
         robotPos, _ = p.getBasePositionAndOrientation(robot)
         p.resetDebugVisualizerCamera(cameraDistance=camDistance,
@@ -73,11 +78,19 @@ def makeDataset(robot, robotName, numSamples, motionRange,
                                      cameraTargetPosition=robotPos)
 
         img = p.getCameraImage(224, 224)[2]
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite('{}/{}.jpg'.format(robotName, i), gray)
-        i += 1
+        img = np.reshape(img, (224, 224, 4))
+        img = img[:, :, :3]
+        image_buf.append(img)
+        # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # cv2.imwrite(f'{dir_imgs}.bmp/{i}', img)
+
         time.sleep(0.1)
         p.stepSimulation()
+
+    temp_imgs = np.array(image_buf)
+    np.save(file_img, temp_imgs)
+    temp_joints = np.array(joint_buf)
+    np.save(file_joints, temp_joints)
 
     p.disconnect()
 
