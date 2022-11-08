@@ -1,0 +1,289 @@
+<robot name="ant">
+
+<link name="body">
+	<inertial>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+	
+	<visual name="">
+		<geometry>
+			<sphere radius="1.0"/>
+		</geometry>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+	</visual>
+	
+	<collision name="">
+		<geometry>
+			<sphere radius="0.5"/>
+		</geometry>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="hip1">
+	<inertial>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+	
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="red">
+			<color rgba="1 0 0 1"/>
+		</material>
+		<origin rpy="0 1.57 0" xyz="0.25 0 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="hip2">
+	<inertial>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="green">
+			<color rgba="0 1 0 1"/>
+		</material>
+		<origin rpy="0 1.57 0" xyz="-0.25 0 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="hip3">
+	<inertial>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="blue">
+			<color rgba="0 0 1 1"/>
+		</material>
+		<origin rpy="1.57 1.57 0" xyz="0 0.25 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="hip4">
+	<inertial>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="yellow">
+			<color rgba="1 1 0 1"/>
+		</material>
+		<origin rpy="1.57 1.57 0" xyz="0 -0.25 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="leg1">
+	<inertial>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="red">
+			<color rgba="1 0 0 1"/>
+		</material>
+		<origin rpy="0 1.57 0" xyz="0.75 0 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="leg2">
+	<inertial>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="green">
+			<color rgba="0 1 0 1"/>
+		</material>
+		<origin rpy="0 1.57 0" xyz="-0.75 0 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="0 1.57 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="leg3">
+	<inertial>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="blue">
+			<color rgba="0 0 1 1"/>
+		</material>
+		<origin rpy="1.57 0 0" xyz="0 0.75 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="1.57 0 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<link name="leg4">
+	<inertial>
+		<origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+	</inertial>
+
+	<visual name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<material name="yellow">
+			<color rgba="1 1 0 1"/>
+		</material>
+		<origin rpy="1.57 0 0" xyz="0 -0.75 0"/>
+	</visual>
+
+	<collision name="">
+		<geometry>
+			<cylinder radius="0.25" length="1.5"/>
+		</geometry>
+		<origin rpy="1.57 0 0" xyz="0 0 0"/>
+	</collision>
+</link>
+
+<joint name="body-hip1" type="revolute">
+	<origin rpy="0 0 0" xyz="1 0 0"/>
+	<parent link="body"/>
+	<child link="hip1" />
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="body-hip2" type="revolute">
+	<origin rpy="0 0 0" xyz="-1 0 0"/>
+	<parent link="body"/>
+	<child link="hip2" />
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="body-hip3" type="revolute">
+	<origin rpy="0 0 0" xyz="0 1 0"/>
+	<parent link="body"/>
+	<child link="hip3" />
+	<axis xyz="1 0 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="body-hip4" type="revolute">
+	<origin rpy="0 0 0" xyz="0 -1 0"/>
+	<parent link="body"/>
+	<child link="hip4" />
+	<axis xyz="1 0 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="hip1-leg1" type="revolute">
+	<origin rpy="0 0 0" xyz="1 0 0"/>
+	<parent link="hip1"/>
+	<child link="leg1" />
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="hip2-leg2" type="revolute">
+	<origin rpy="0 0 0" xyz="-1 0 0"/>
+	<parent link="hip2"/>
+	<child link="leg2" />
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="hip3-leg3" type="revolute">
+	<origin rpy="0 0 0" xyz="0 1 0"/>
+	<parent link="hip3"/>
+	<child link="leg3" />
+	<axis xyz="1 0 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+<joint name="hip4-leg4" type="revolute">
+	<origin rpy="0 0 0" xyz="0 -1 0"/>
+	<parent link="hip4"/>
+	<child link="leg4" />
+	<axis xyz="1 0 0"/>
+	<limit effort="1000.0" lower="-1.57" upper="1.57" velocity="1.0"/>
+</joint>
+
+</robot>
